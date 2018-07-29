@@ -36,20 +36,20 @@ class ImageClassifier(activity: Activity) {
         tflite = Interpreter(loadModelFile(activity))
         labelList = loadLabelList(activity)
         imgDataBuffer = FloatBuffer.allocate(imageSizeX * imageSizeY)
-        Log.d(TAG, "Created a Tensorflow Lite Image Classifier.")
+        Log.d(TAG, "Created Tensorflow Lite Image Classifier")
     }
 
 
     fun classifyFrame(bitmap: Bitmap): FloatArray {
         if (tflite == null) {
-            Log.e(TAG, "Image classifier has not been initialized; Skipped.")
+            Log.e(TAG, "Image classifier has not been initialized")
         }
-        extractFeatures(bitmap)
+        applyTransformation(bitmap)
         val features = imgDataBuffer.array()
         return runInference(features)
     }
 
-    private fun extractFeatures(bitmap: Bitmap) {
+    private fun applyTransformation(bitmap: Bitmap) {
         imgDataBuffer.rewind()
         val intValues = IntArray(imageSizeX * imageSizeY)
         bitmap.getPixels(intValues, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)

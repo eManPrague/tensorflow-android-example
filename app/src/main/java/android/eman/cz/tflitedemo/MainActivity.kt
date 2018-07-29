@@ -261,7 +261,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 // close the app
-                showToast("Sorry! You can't use this app without granting permission")
+                showToast("You can't use this app without granting permission")
                 finish()
             }
         }
