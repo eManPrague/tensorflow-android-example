@@ -39,7 +39,9 @@ class ImageClassifier(activity: Activity) {
         Log.d(TAG, "Created Tensorflow Lite Image Classifier")
     }
 
-
+    /**
+     * Receives an image as bitmap for classification.
+     */
     fun classifyFrame(bitmap: Bitmap): FloatArray {
         if (tflite == null) {
             Log.e(TAG, "Image classifier has not been initialized")
@@ -49,6 +51,9 @@ class ImageClassifier(activity: Activity) {
         return runInference(features)
     }
 
+    /**
+     * Here you can apply any transformations to your image, before classification.
+     */
     private fun applyTransformation(bitmap: Bitmap) {
         imgDataBuffer.rewind()
         val intValues = IntArray(imageSizeX * imageSizeY)
@@ -60,6 +65,9 @@ class ImageClassifier(activity: Activity) {
         }
     }
 
+    /**
+     * Evaluate model with data from image.
+     */
     private fun runInference(features: FloatArray): FloatArray {
         val input = Array(1) { _ -> features }
         val output = Array(1) { _ -> FloatArray(labelList.size)}
@@ -71,7 +79,9 @@ class ImageClassifier(activity: Activity) {
     }
 
 
-
+    /**
+     * Decompose pixel into colors and transform pixel value.
+     */
     private fun transformPixelValue(rgb: Int) {
         val red = rgb shr 16 and 0xFF
         val green = rgb shr 8 and 0xFF
@@ -83,7 +93,9 @@ class ImageClassifier(activity: Activity) {
         imgDataBuffer.put(normalized)
     }
 
-
+    /**
+     * Load labels list from assets.
+     */
     @Throws(IOException::class)
     private fun loadLabelList(activity: Activity): List<String> {
         val labelList = ArrayList<String>()
@@ -97,7 +109,9 @@ class ImageClassifier(activity: Activity) {
         return labelList
     }
 
-
+    /**
+     * Load model file from assets.
+     */
     @Throws(IOException::class)
     private fun loadModelFile(activity: Activity): MappedByteBuffer {
         val fileDescriptor = activity.assets.openFd(modelPath)
@@ -108,7 +122,9 @@ class ImageClassifier(activity: Activity) {
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
 
-
+    /**
+     * De-initialize TFLite interpreter.
+     */
     fun close() {
         tflite!!.close()
         tflite = null

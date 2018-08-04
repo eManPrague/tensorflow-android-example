@@ -73,7 +73,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Process a camera frame to TFLite for inference.
+     */
     private fun processFrame() {
         if (cameraDevice == null) {
             return
@@ -102,7 +104,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Helper function to save provided bitmap as photo.
+     */
     private fun saveImageFile(bitmap: Bitmap, filename: String) {
         val folder = File(Environment.getExternalStorageDirectory(), "TFLiteDemo_images")
         folder.mkdirs()
@@ -123,17 +127,20 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
+    /**
+     * A helper function to show toast.
+     */
     fun showToast(textToShow: String) {
         runOnUiThread {
             Toast.makeText(this@MainActivity, textToShow, Toast.LENGTH_SHORT).show()
         }
     }
 
-
+    /**
+     * Callback for texture view used for camera preview.
+     */
     var textureListener: TextureView.SurfaceTextureListener = object : TextureView.SurfaceTextureListener {
         override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
-            //open your camera here
             openCamera()
         }
 
@@ -146,6 +153,9 @@ class MainActivity : AppCompatActivity() {
         override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
     }
 
+    /**
+     * Callback for camera actions.
+     */
     val stateCallback = object : CameraDevice.StateCallback() {
         override fun onOpened(camera: CameraDevice) {
             cameraDevice = camera
@@ -162,11 +172,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Start background thread for camera.
+     */
     fun startBackgroundThread() {
         backgroundThread = HandlerThread("Camera Background")
         backgroundThread?.start()
         backgroundHandler = Handler(backgroundThread?.looper)
     }
+
+    /**
+     * Stop background thread for camera.
+     */
 
     fun stopBackgroundThread() {
         backgroundThread?.quitSafely()
@@ -179,6 +196,10 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    /**
+     * Show camera preview in texture ui.
+     */
 
     fun createCameraPreview() {
         try {
@@ -205,6 +226,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Logic for first opening camera with a resolution.
+     */
     fun openCamera() {
         val manager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
@@ -234,6 +258,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Update capture session by new camera data.
+     */
     fun updatePreview() {
         if (null == cameraDevice) {
             return
@@ -257,6 +284,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Handle permissions.
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
