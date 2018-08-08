@@ -2,10 +2,10 @@
 
 Convolutional Neural Network are current state of the art for image classification. You can find here how to implement a frozen `.tflite` model to an Android app.
 
-The Convolutional Neural Network recognizes a dug toy. Application takes frames from camera and passes it to trained Tensorflow model.
-
 
 ## Application
+The Convolutional Neural Network recognizes a dug toy. Application takes frames from camera and passes it to trained Tensorflow model.
+
 <img src="app.gif" width="320">
 
 
