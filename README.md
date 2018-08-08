@@ -4,7 +4,7 @@ Convolutional Neural Network are current state of the art for image classificati
 
 
 ## Application
-The Convolutional Neural Network recognizes a dug toy. Application takes frames from camera and passes it to trained Tensorflow model.
+The Convolutional Neural Network recognizes a dug toy. Application takes frames from camera and passes it to trained Tensorflow model for recognition.
 
 <img src="app.gif" width="320">
 
