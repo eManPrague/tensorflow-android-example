@@ -6,7 +6,7 @@ The Convolutional Neural Network recognizes a dug toy. Application takes frames 
 
 
 ## Application
-![ ](app.gif)
+![ ](app.gif){:width="320px"}
 
 
 ## Note
